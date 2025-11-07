@@ -1,0 +1,40 @@
+# 深度学习框架
+torch
+torchvision
+
+# Transformers和相关库
+transformers
+tokenizers
+sentencepiece
+
+# 注意：flash_attn, vllm, xformers 需要特殊安装或可能不兼容当前环境
+
+# ONNX相关
+onnx
+onnxruntime
+
+# 图像处理
+opencv-python
+opencv-contrib-python
+
+# 数值计算和数据处理
+numpy
+scipy
+pandas
+scikit-learn
+
+# 网络通信
+grpcio
+
+# NVIDIA CUDA相关库 (通过pip安装可能不完整，建议通过conda或官方渠道安装)
+# nvidia-cuda-runtime-cu12
+# nvidia-cublas-cu12
+# nvidia-cudnn-cu12
+# nvidia-nccl-cu12
+# nvidia-cuda-nvrtc-cu12
+# nvidia-cuda-cupti-cu12
+# nvidia-nvjitlink-cu12
+# nvidia-cuda-runtime-cu13
+# nvidia-cublas-cu11
+# nvidia-cudnn-cu11
+# nvidia-cuda-nvrtc-cu11

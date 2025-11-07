@@ -1,0 +1,61 @@
+2025-10-10 12:13:33,818 - INFO - Starting concurrent pinger...
+2025-10-10 12:13:34,839 - INFO - Ping 127.0.0.1 - Success - Response time: 7.57ms
+2025-10-10 12:13:34,839 - INFO - Ping baidu.com - Success - Response time: 29.37ms
+2025-10-10 12:13:34,840 - WARNING - Ping google.com - Failed
+2025-10-10 12:13:36,877 - INFO - Ping 127.0.0.1 - Success - Response time: 20.03ms
+2025-10-10 12:13:36,877 - INFO - Ping baidu.com - Success - Response time: 37.98ms
+2025-10-10 12:13:36,877 - WARNING - Ping google.com - Failed
+2025-10-10 12:13:38,898 - INFO - Ping 127.0.0.1 - Success - Response time: 10.61ms
+2025-10-10 12:13:38,898 - INFO - Ping baidu.com - Success - Response time: 33.47ms
+2025-10-10 12:13:38,898 - WARNING - Ping google.com - Failed
+2025-10-10 12:13:40,925 - INFO - Ping 127.0.0.1 - Success - Response time: 15.75ms
+2025-10-10 12:13:40,926 - INFO - Ping baidu.com - Success - Response time: 33.96ms
+2025-10-10 12:13:40,926 - WARNING - Ping google.com - Failed
+2025-10-10 12:13:40,926 - INFO - Success rate for 127.0.0.1: 100.00% (window: 10s)
+2025-10-10 12:13:40,926 - INFO - Success rate for baidu.com: 100.00% (window: 10s)
+2025-10-10 12:13:40,926 - INFO - Success rate for google.com: 0.00% (window: 10s)
+2025-10-10 12:13:42,964 - INFO - Ping 127.0.0.1 - Success - Response time: 23.51ms
+2025-10-10 12:13:42,964 - INFO - Ping baidu.com - Success - Response time: 34.42ms
+2025-10-10 12:13:42,965 - WARNING - Ping google.com - Failed
+2025-10-10 12:13:44,996 - INFO - Ping 127.0.0.1 - Success - Response time: 17.28ms
+2025-10-10 12:13:44,998 - INFO - Ping baidu.com - Success - Response time: 33.87ms
+2025-10-10 12:13:44,998 - WARNING - Ping google.com - Failed
+2025-10-10 12:13:47,027 - INFO - Ping 127.0.0.1 - Success - Response time: 16.17ms
+2025-10-10 12:13:47,027 - INFO - Ping baidu.com - Success - Response time: 35.22ms
+2025-10-10 12:13:47,027 - WARNING - Ping google.com - Failed
+2025-10-10 12:13:49,044 - INFO - Ping 127.0.0.1 - Success - Response time: 6.59ms
+2025-10-10 12:13:49,044 - INFO - Ping baidu.com - Success - Response time: 29.73ms
+2025-10-10 12:13:49,044 - WARNING - Ping google.com - Failed
+2025-10-10 12:13:51,078 - INFO - Ping 127.0.0.1 - Success - Response time: 18.32ms
+2025-10-10 12:13:51,079 - INFO - Ping baidu.com - Success - Response time: 30.07ms
+2025-10-10 12:13:51,080 - WARNING - Ping google.com - Failed
+2025-10-10 17:21:30,703 - INFO - Starting concurrent pinger...
+2025-10-10 17:21:31,722 - WARNING - Ping 172.17.0.75 - Failed
+2025-10-10 17:21:31,723 - WARNING - Ping 172.17.4.75 - Failed
+2025-10-10 17:21:31,723 - WARNING - Ping 172.17.5.227 - Failed
+2025-10-10 17:21:31,723 - WARNING - Ping 172.17.80.139 - Failed
+2025-10-10 17:21:31,723 - WARNING - Ping 172.17.64.250 - Failed
+2025-10-10 17:21:31,723 - WARNING - Ping 172.17.80.136 - Failed
+2025-10-10 17:21:31,723 - WARNING - Ping 172.17.81.196 - Failed
+2025-10-10 17:21:33,763 - WARNING - Ping 172.17.0.75 - Failed
+2025-10-10 17:21:33,763 - WARNING - Ping 172.17.4.75 - Failed
+2025-10-10 17:21:33,763 - WARNING - Ping 172.17.5.227 - Failed
+2025-10-10 17:21:33,763 - WARNING - Ping 172.17.80.139 - Failed
+2025-10-10 17:21:33,764 - WARNING - Ping 172.17.64.250 - Failed
+2025-10-10 17:21:33,764 - WARNING - Ping 172.17.80.136 - Failed
+2025-10-10 17:21:33,764 - WARNING - Ping 172.17.81.196 - Failed
+2025-10-10 17:23:22,391 - INFO - Starting concurrent pinger...
+2025-10-10 17:23:23,410 - WARNING - Ping 172.17.0.75 - Failed
+2025-10-10 17:23:23,411 - WARNING - Ping 172.17.4.75 - Failed
+2025-10-10 17:23:23,411 - WARNING - Ping 172.17.5.227 - Failed
+2025-10-10 17:23:23,411 - WARNING - Ping 172.17.80.139 - Failed
+2025-10-10 17:23:23,411 - WARNING - Ping 172.17.64.250 - Failed
+2025-10-10 17:23:23,411 - WARNING - Ping 172.17.80.136 - Failed
+2025-10-10 17:23:23,411 - WARNING - Ping 172.17.81.196 - Failed
+2025-10-10 17:23:25,444 - WARNING - Ping 172.17.0.75 - Failed
+2025-10-10 17:23:25,445 - WARNING - Ping 172.17.4.75 - Failed
+2025-10-10 17:23:25,445 - WARNING - Ping 172.17.5.227 - Failed
+2025-10-10 17:23:25,445 - WARNING - Ping 172.17.80.139 - Failed
+2025-10-10 17:23:25,445 - WARNING - Ping 172.17.64.250 - Failed
+2025-10-10 17:23:25,446 - WARNING - Ping 172.17.80.136 - Failed
+2025-10-10 17:23:25,446 - WARNING - Ping 172.17.81.196 - Failed

@@ -4,7 +4,7 @@
 # 检查并安装机器学习相关依赖包
 
 # 设置PyPI镜像源
-PIP_INDEX_URL="https://art-pub.eng.t-head.cn/artifactory/api/pypi/ptgai-pypi_ppu_ubuntu_cu126_index/simple/"
+PIP_INDEX_URL="https://art-pub.eng.t-head.cn/artifactory/api/pypi/ptgai-pypi_ppu_ubuntu_cu128_index/simple/"
 
 # 需要安装的依赖包列表（按依赖顺序排列）
 PACKAGES=(

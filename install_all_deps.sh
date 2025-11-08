@@ -4,7 +4,7 @@
 # 检查并安装所有指定的依赖包
 
 # 设置PyPI镜像源
-PIP_INDEX_URL="https://aiext-pypi.mirrors.aliyuncs.com/pg1-pip/ubuntu_cu128/simple/"
+PIP_INDEX_URL="https://art-pub.eng.t-head.cn/artifactory/api/pypi/ptgai-pypi_ppu_ubuntu_cu128_index/simple/"
 
 # 需要安装的依赖包列表（按依赖顺序排列）
 PACKAGES=(
@@ -46,7 +46,6 @@ PACKAGES=(
     "openvino"
     "openvino-dev"
     "tensorrt"
-    "tensorrt_cu13*"
     "nvidia-cuda-runtime-cu12"
     "nvidia-cublas-cu12"
     "nvidia-cudnn-cu12"
@@ -83,27 +82,34 @@ install_package() {
     # 特殊处理某些包的安装
     case $package in
         "opencv-python"|"opencv-contrib-python"|"opencv-python-headless")
-            pip install "$package" -i "$PIP_INDEX_URL" --timeout 300 --no-cache-dir
+            pip install "$package" -i "$PIP_INDEX_URL" --timeout 600 --no-cache-dir
             ;;
         "scikit-learn")
-            pip install scikit-learn -i "$PIP_INDEX_URL" --timeout 300 --no-cache-dir
+            pip install scikit-learn -i "$PIP_INDEX_URL" --timeout 600 --no-cache-dir
             ;;
         "scikit-image")
-            pip install scikit-image -i "$PIP_INDEX_URL" --timeout 300 --no-cache-dir
+            pip install scikit-image -i "$PIP_INDEX_URL" --timeout 600 --no-cache-dir
             ;;
         "pytorch-lightning")
-            pip install pytorch-lightning -i "$PIP_INDEX_URL" --timeout 300 --no-cache-dir
+            pip install pytorch-lightning -i "$PIP_INDEX_URL" --timeout 600 --no-cache-dir
             ;;
         "nvidia-"*)
             # NVIDIA相关包可能需要特殊处理
-            pip install "$package" -i "$PIP_INDEX_URL" --timeout 300 --no-cache-dir --extra-index-url https://pypi.org/simple/
+            # 首先尝试从指定镜像源安装
+            echo "尝试从指定镜像源安装 $package..."
+            pip install "$package" -i "$PIP_INDEX_URL" --timeout 600 --no-cache-dir 2>/dev/null
+            if [ $? -ne 0 ]; then
+                # 如果失败，尝试从PyPI官方源安装
+                echo "从指定镜像源安装失败，尝试从PyPI官方源安装..."
+                pip install "$package" --timeout 600 --no-cache-dir
+            fi
             ;;
-        "tensorrt_cu13*")
+        "tensorrt")
             # TensorRT特殊处理
-            pip install tensorrt -i "$PIP_INDEX_URL" --timeout 300 --no-cache-dir
+            pip install "$package" -i "$PIP_INDEX_URL" --timeout 600 --no-cache-dir
             ;;
         *)
-            pip install "$package" -i "$PIP_INDEX_URL" --timeout 300 --no-cache-dir
+            pip install "$package" -i "$PIP_INDEX_URL" --timeout 600 --no-cache-dir
             ;;
     esac
     
@@ -158,9 +164,6 @@ verify_package() {
             ;;
         "paddlepaddle"|"paddlepaddle-gpu")
             import_name="paddle"
-            ;;
-        "tensorrt_cu13*")
-            import_name="tensorrt"
             ;;
     esac
     
@@ -219,9 +222,6 @@ get_import_name() {
             ;;
         "paddlepaddle"|"paddlepaddle-gpu")
             echo "paddle"
-            ;;
-        "tensorrt_cu13*")
-            echo "tensorrt"
             ;;
         *)
             echo "$package"

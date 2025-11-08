@@ -4,7 +4,7 @@
 验证以下依赖是否兼容并且能够使用：
 torch, torchvision, torchaudio, pytorch-lightning, fastai, xformers, flash_attn, triton, cupy-cuda12x, vllm,
 transformers, onnx, onnxruntime, tensorflow, keras, paddlepaddle, paddlepaddle-gpu, paddledet, paddlex, paddleocr,
-openvino, openvino-dev, tensorrt, tensorrt_cu13*,
+openvino, openvino-dev, tensorrt,
 nvidia-cuda-runtime-cu12, nvidia-cublas-cu12, nvidia-cudnn-cu12, nvidia-nccl-cu12, nvidia-cuda-nvrtc-cu12, 
 nvidia-cuda-cupti-cu12, nvidia-nvjitlink-cu12, nvidia-cuda-runtime-cu13, nvidia-cublas-cu11, nvidia-cudnn-cu11, 
 nvidia-cuda-nvrtc-cu11,
@@ -485,7 +485,7 @@ def main():
         ("ray", "__version__"),
         
         # 网络和序列化
-        ("grpcio", "__version__"),
+        ("grpc", "__version__"),
         ("gradio", "__version__"),
         ("streamlit", "__version__"),
         ("tokenizers", "__version__"),

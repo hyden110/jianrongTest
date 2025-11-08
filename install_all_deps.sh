@@ -4,7 +4,7 @@
 # 检查并安装所有指定的依赖包
 
 # 设置PyPI镜像源
-PIP_INDEX_URL="https://art-pub.eng.t-head.cn/artifactory/api/pypi/ptgai-pypi_ppu_ubuntu_cu128_index/simple/"
+PIP_INDEX_URL="https://art-pub.eng.t-head.cn/artifactory/api/pypi/cu128_index/simple/"
 
 # # 1.1 PTG提供的PPU PIP服务的Index URL格式
 # https://art-pub.eng.t-head.cn/artifactory/api/pypi/ptgai-pypi_ppu_ubuntu_<cuda-version>_index/simple/

@@ -4,51 +4,49 @@
 # 检查并安装所有指定的依赖包
 
 # 设置PyPI镜像源
-PIP_INDEX_URL="https://art-pub.eng.t-head.cn/artifactory/api/pypi/cu128_index/simple/"
-
-# # 1.1 PTG提供的PPU PIP服务的Index URL格式
-# https://art-pub.eng.t-head.cn/artifactory/api/pypi/ptgai-pypi_ppu_ubuntu_<cuda-version>_index/simple/
-# ## PTG提供的PPU PIP服务的Index URL具体实例：
-# https://art-pub.eng.t-head.cn/artifactory/api/pypi/ptgai-pypi_ppu_ubuntu_cu123_index/simple/
-# https://art-pub.eng.t-head.cn/artifactory/api/pypi/ptgai-pypi_ppu_ubuntu_cu124_index/simple/
-# https://art-pub.eng.t-head.cn/artifactory/api/pypi/ptgai-pypi_ppu_ubuntu_cu126_index/simple/
-# https://art-pub.eng.t-head.cn/artifactory/api/pypi/ptgai-pypi_ppu_ubuntu_cu128_index/simple/
-
-# # 1.2 PTG提供的PPU PIP服务的Index URL格式(OS Free样式)
-# https://art-pub.eng.t-head.cn/artifactory/api/pypi/<cuda-version>_index/simple/
-# ## PTG提供的PPU PIP服务的Index URL具体实例(OS Free样式)：
-# https://art-pub.eng.t-head.cn/artifactory/api/pypi/cu126_index/simple/
-# https://art-pub.eng.t-head.cn/artifactory/api/pypi/cu128_index/simple/
-
-
-# # 2.1 阿里云提供的PPU PIP服务的Index URL格式：
-# https://aiext-pypi.mirrors.aliyuncs.com/pg1-pip/ubuntu_<cuda-version>/simple/
-# ## 阿里云提供的PPU PIP服务的Index URL具体实例：
-# https://aiext-pypi.mirrors.aliyuncs.com/pg1-pip/ubuntu_cu123/simple/
-# https://aiext-pypi.mirrors.aliyuncs.com/pg1-pip/ubuntu_cu124/simple/
-# https://aiext-pypi.mirrors.aliyuncs.com/pg1-pip/ubuntu_cu126/simple/
-# https://aiext-pypi.mirrors.aliyuncs.com/pg1-pip/ubuntu_cu128/simple/
-
+PIP_INDEX_URL="https://aiext-pypi.mirrors.aliyuncs.com/pg1-pip/ubuntu_cu128/simple/"
 
 # 需要安装的依赖包列表（按依赖顺序排列）
 PACKAGES=(
     "numpy"
     "scipy"
     "pandas"
+    "polars"
     "scikit-learn"
+    "scikit-image"
     "onnx"
     "onnxruntime"
     "opencv-python"
     "opencv-contrib-python"
+    "opencv-python-headless"
+    "dlib"
     "tokenizers"
     "sentencepiece"
     "grpcio"
+    "gradio"
+    "streamlit"
     "torch"
     "torchvision"
+    "torchaudio"
+    "pytorch-lightning"
+    "fastai"
     "transformers"
     "xformers"
     "flash_attn"
+    "triton"
+    "cupy-cuda12x"
     "vllm"
+    "tensorflow"
+    "keras"
+    "paddlepaddle"
+    "paddlepaddle-gpu"
+    "paddledet"
+    "paddlex"
+    "paddleocr"
+    "openvino"
+    "openvino-dev"
+    "tensorrt"
+    "tensorrt_cu13*"
     "nvidia-cuda-runtime-cu12"
     "nvidia-cublas-cu12"
     "nvidia-cudnn-cu12"
@@ -60,6 +58,7 @@ PACKAGES=(
     "nvidia-cublas-cu11"
     "nvidia-cudnn-cu11"
     "nvidia-cuda-nvrtc-cu11"
+    "ray"
 )
 
 # 颜色定义
@@ -83,15 +82,25 @@ install_package() {
     
     # 特殊处理某些包的安装
     case $package in
-        "opencv-python"|"opencv-contrib-python")
+        "opencv-python"|"opencv-contrib-python"|"opencv-python-headless")
             pip install "$package" -i "$PIP_INDEX_URL" --timeout 300 --no-cache-dir
             ;;
         "scikit-learn")
             pip install scikit-learn -i "$PIP_INDEX_URL" --timeout 300 --no-cache-dir
             ;;
+        "scikit-image")
+            pip install scikit-image -i "$PIP_INDEX_URL" --timeout 300 --no-cache-dir
+            ;;
+        "pytorch-lightning")
+            pip install pytorch-lightning -i "$PIP_INDEX_URL" --timeout 300 --no-cache-dir
+            ;;
         "nvidia-"*)
             # NVIDIA相关包可能需要特殊处理
             pip install "$package" -i "$PIP_INDEX_URL" --timeout 300 --no-cache-dir --extra-index-url https://pypi.org/simple/
+            ;;
+        "tensorrt_cu13*")
+            # TensorRT特殊处理
+            pip install tensorrt -i "$PIP_INDEX_URL" --timeout 300 --no-cache-dir
             ;;
         *)
             pip install "$package" -i "$PIP_INDEX_URL" --timeout 300 --no-cache-dir
@@ -141,6 +150,18 @@ verify_package() {
         "nvidia-nvjitlink-cu12")
             import_name="nvidia.nvjitlink"
             ;;
+        "pytorch-lightning")
+            import_name="pytorch_lightning"
+            ;;
+        "scikit-image")
+            import_name="skimage"
+            ;;
+        "paddlepaddle"|"paddlepaddle-gpu")
+            import_name="paddle"
+            ;;
+        "tensorrt_cu13*")
+            import_name="tensorrt"
+            ;;
     esac
     
     python -c "import $import_name; print('$import_name version:', $import_name.__version__ if hasattr($import_name, '__version__') else 'unknown')" 2>/dev/null
@@ -151,11 +172,17 @@ verify_package() {
 get_import_name() {
     local package=$1
     case $package in
-        "opencv-python"|"opencv-contrib-python")
+        "opencv-python"|"opencv-contrib-python"|"opencv-python-headless")
             echo "cv2"
             ;;
         "scikit-learn")
             echo "sklearn"
+            ;;
+        "scikit-image")
+            echo "skimage"
+            ;;
+        "pytorch-lightning")
+            echo "pytorch_lightning"
             ;;
         "nvidia-cuda-runtime-cu12")
             echo "nvidia.cuda_runtime"
@@ -189,6 +216,12 @@ get_import_name() {
             ;;
         "nvidia-cuda-nvrtc-cu11")
             echo "nvidia.nvrtc"
+            ;;
+        "paddlepaddle"|"paddlepaddle-gpu")
+            echo "paddle"
+            ;;
+        "tensorrt_cu13*")
+            echo "tensorrt"
             ;;
         *)
             echo "$package"
@@ -268,6 +301,7 @@ main() {
         echo -e "${YELLOW}提示: 某些包可能需要特殊安装步骤或编译环境${NC}"
         echo -e "${YELLOW}提示: 请确保已安装必要的系统依赖和编译工具${NC}"
         echo -e "${YELLOW}提示: NVIDIA相关包可能需要CUDA环境支持${NC}"
+        echo -e "${YELLOW}提示: AI框架相关包可能需要大量内存和时间安装${NC}"
     else
         echo -e "${GREEN}🎉 所有包都已成功安装!${NC}"
     fi

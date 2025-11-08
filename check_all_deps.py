@@ -4,14 +4,22 @@
 验证所有依赖是否能够正常使用
 """
 
-def check_package(package_name, import_name=None):
+def check_package(package_name, import_name=None, version_attr=None):
     """检查包是否已安装并能正常导入"""
     if import_name is None:
         import_name = package_name
     
     try:
-        __import__(import_name)
-        print(f"✓ {package_name} (已安装)")
+        module = __import__(import_name)
+        # 处理子模块的情况
+        for sub_module in import_name.split('.')[1:]:
+            module = getattr(module, sub_module)
+        
+        if version_attr and hasattr(module, version_attr):
+            version = getattr(module, version_attr)
+            print(f"✓ {package_name} (版本: {version})")
+        else:
+            print(f"✓ {package_name} (已安装)")
         return True
     except ImportError as e:
         print(f"✗ {package_name} (未安装或导入失败: {e})")
@@ -26,41 +34,83 @@ def main():
     
     # 需要检查的包列表
     packages = [
-        ("numpy", None),
-        ("scipy", None),
-        ("pandas", None),
-        ("scikit-learn", "sklearn"),
-        ("onnx", None),
-        ("onnxruntime", None),
-        ("opencv-python", "cv2"),
-        ("opencv-contrib-python", "cv2"),
-        ("tokenizers", None),
-        ("sentencepiece", None),
-        ("grpcio", None),
-        ("torch", None),
-        ("torchvision", None),
-        ("transformers", None),
-        ("xformers", None),
-        ("flash_attn", None),
-        ("vllm", None),
-        ("nvidia-cuda-runtime-cu12", "nvidia.cuda_runtime"),
-        ("nvidia-cublas-cu12", "nvidia.cublas"),
-        ("nvidia-cudnn-cu12", "nvidia.cudnn"),
-        ("nvidia-nccl-cu12", "nvidia.nccl"),
-        ("nvidia-cuda-nvrtc-cu12", "nvidia.nvrtc"),
-        ("nvidia-cuda-cupti-cu12", "nvidia.cupti"),
-        ("nvidia-nvjitlink-cu12", "nvidia.nvjitlink"),
-        ("nvidia-cuda-runtime-cu13", "nvidia.cuda_runtime"),
-        ("nvidia-cublas-cu11", "nvidia.cublas"),
-        ("nvidia-cudnn-cu11", "nvidia.cudnn"),
-        ("nvidia-cuda-nvrtc-cu11", "nvidia.nvrtc"),
+        # PyTorch生态
+        ("torch", "torch", "__version__"),
+        ("torchvision", "torchvision", "__version__"),
+        ("torchaudio", "torchaudio", "__version__"),
+        ("pytorch-lightning", "pytorch_lightning", "__version__"),
+        ("fastai", "fastai", "__version__"),
+        ("xformers", "xformers", None),
+        ("flash_attn", "flash_attn", None),
+        ("triton", "triton", "__version__"),
+        ("cupy-cuda12x", "cupy", "__version__"),
+        ("vllm", "vllm", None),
+        
+        # TensorFlow生态
+        ("tensorflow", "tensorflow", "__version__"),
+        ("keras", "keras", "__version__"),
+        
+        # PaddlePaddle生态
+        ("paddlepaddle", "paddle", "__version__"),
+        ("paddlepaddle-gpu", "paddle", "__version__"),
+        ("paddledet", "ppdet", None),
+        ("paddlex", "paddlex", None),
+        ("paddleocr", "paddleocr", None),
+        
+        # OpenVINO
+        ("openvino", "openvino", "__version__"),
+        ("openvino-dev", "openvino", "__version__"),
+        
+        # TensorRT
+        ("tensorrt", "tensorrt", "__version__"),
+        ("tensorrt_cu13*", "tensorrt", "__version__"),
+        
+        # ONNX相关
+        ("onnx", "onnx", "__version__"),
+        ("onnxruntime", "onnxruntime", "__version__"),
+        
+        # 图像处理
+        ("opencv-python", "cv2", "__version__"),
+        ("opencv-contrib-python", "cv2", "__version__"),
+        ("opencv-python-headless", "cv2", "__version__"),
+        ("dlib", "dlib", "DLIB_VERSION"),
+        
+        # 数值计算
+        ("numpy", "numpy", "__version__"),
+        ("scipy", "scipy", "__version__"),
+        ("pandas", "pandas", "__version__"),
+        ("polars", "polars", "__version__"),
+        ("scikit-learn", "sklearn", "__version__"),
+        ("scikit-image", "skimage", "__version__"),
+        ("ray", "ray", "__version__"),
+        
+        # 网络和序列化
+        ("grpcio", "grpc", "__version__"),
+        ("gradio", "gradio", "__version__"),
+        ("streamlit", "streamlit", "__version__"),
+        ("xformers", "xformers", None),
+        ("tokenizers", "tokenizers", "__version__"),
+        ("sentencepiece", "sentencepiece", "__version__"),
+        
+        # NVIDIA CUDA库
+        ("nvidia-cuda-runtime-cu12", "nvidia.cuda_runtime", None),
+        ("nvidia-cublas-cu12", "nvidia.cublas", None),
+        ("nvidia-cudnn-cu12", "nvidia.cudnn", None),
+        ("nvidia-nccl-cu12", "nvidia.nccl", None),
+        ("nvidia-cuda-nvrtc-cu12", "nvidia.nvrtc", None),
+        ("nvidia-cuda-cupti-cu12", "nvidia.cupti", None),
+        ("nvidia-nvjitlink-cu12", "nvidia.nvjitlink", None),
+        ("nvidia-cuda-runtime-cu13", "nvidia.cuda_runtime", None),
+        ("nvidia-cublas-cu11", "nvidia.cublas", None),
+        ("nvidia-cudnn-cu11", "nvidia.cudnn", None),
+        ("nvidia-cuda-nvrtc-cu11", "nvidia.nvrtc", None),
     ]
     
     installed_count = 0
     total_count = len(packages)
     
-    for package_name, import_name in packages:
-        if check_package(package_name, import_name):
+    for package_name, import_name, version_attr in packages:
+        if check_package(package_name, import_name, version_attr):
             installed_count += 1
     
     print(f"\n=== 检查结果 ===")

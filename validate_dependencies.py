@@ -2,10 +2,15 @@
 """
 依赖验证脚本
 验证以下依赖是否兼容并且能够使用：
-torch, torchvision, xformers, flash_attn, vllm, transformers,
-onnx, onnxruntime, opencv-python, opencv-contrib-python,
-numpy, scipy, pandas, scikit-learn, grpcio, tokenizers, sentencepiece
-以及相关的NVIDIA CUDA库
+torch, torchvision, torchaudio, pytorch-lightning, fastai, xformers, flash_attn, triton, cupy-cuda12x, vllm,
+transformers, onnx, onnxruntime, tensorflow, keras, paddlepaddle, paddlepaddle-gpu, paddledet, paddlex, paddleocr,
+openvino, openvino-dev, tensorrt, tensorrt_cu13*,
+nvidia-cuda-runtime-cu12, nvidia-cublas-cu12, nvidia-cudnn-cu12, nvidia-nccl-cu12, nvidia-cuda-nvrtc-cu12, 
+nvidia-cuda-cupti-cu12, nvidia-nvjitlink-cu12, nvidia-cuda-runtime-cu13, nvidia-cublas-cu11, nvidia-cudnn-cu11, 
+nvidia-cuda-nvrtc-cu11,
+opencv-python, opencv-contrib-python, opencv-python-headless, dlib,
+numpy, scipy, pandas, polars, scikit-learn, scikit-image, ray,
+grpcio, gradio, streamlit, xformers, tokenizers, sentencepiece
 """
 
 import sys
@@ -217,6 +222,214 @@ def test_nvidia_cuda_functionality():
     print(f"NVIDIA CUDA库测试结果: {successful}/{len(nvidia_packages)} 成功")
     return successful
 
+def test_tensorflow_functionality():
+    """测试TensorFlow功能"""
+    try:
+        import tensorflow as tf
+        print(f"✓ TensorFlow库导入成功 (版本: {tf.__version__})")
+        return True
+    except ImportError:
+        print("⚠ TensorFlow未安装")
+        return False
+    except Exception as e:
+        print(f"✗ TensorFlow功能测试失败: {e}")
+        return False
+
+def test_keras_functionality():
+    """测试Keras功能"""
+    try:
+        import keras
+        print(f"✓ Keras库导入成功 (版本: {keras.__version__})")
+        return True
+    except ImportError:
+        print("⚠ Keras未安装")
+        return False
+    except Exception as e:
+        print(f"✗ Keras功能测试失败: {e}")
+        return False
+
+def test_paddle_functionality():
+    """测试PaddlePaddle功能"""
+    try:
+        import paddle
+        print(f"✓ PaddlePaddle库导入成功 (版本: {paddle.__version__})")
+        return True
+    except ImportError:
+        print("⚠ PaddlePaddle未安装")
+        return False
+    except Exception as e:
+        print(f"✗ PaddlePaddle功能测试失败: {e}")
+        return False
+
+def test_openvino_functionality():
+    """测试OpenVINO功能"""
+    try:
+        import openvino
+        print(f"✓ OpenVINO库导入成功 (版本: {openvino.__version__})")
+        return True
+    except ImportError:
+        print("⚠ OpenVINO未安装")
+        return False
+    except Exception as e:
+        print(f"✗ OpenVINO功能测试失败: {e}")
+        return False
+
+def test_tensorrt_functionality():
+    """测试TensorRT功能"""
+    try:
+        import tensorrt
+        print(f"✓ TensorRT库导入成功 (版本: {tensorrt.__version__})")
+        return True
+    except ImportError:
+        print("⚠ TensorRT未安装")
+        return False
+    except Exception as e:
+        print(f"✗ TensorRT功能测试失败: {e}")
+        return False
+
+def test_dlib_functionality():
+    """测试Dlib功能"""
+    try:
+        import dlib
+        print(f"✓ Dlib库导入成功 (版本: {dlib.DLIB_VERSION})")
+        return True
+    except ImportError:
+        print("⚠ Dlib未安装")
+        return False
+    except Exception as e:
+        print(f"✗ Dlib功能测试失败: {e}")
+        return False
+
+def test_polars_functionality():
+    """测试Polars功能"""
+    try:
+        import polars as pl
+        print(f"✓ Polars库导入成功 (版本: {pl.__version__})")
+        return True
+    except ImportError:
+        print("⚠ Polars未安装")
+        return False
+    except Exception as e:
+        print(f"✗ Polars功能测试失败: {e}")
+        return False
+
+def test_skimage_functionality():
+    """测试Scikit-image功能"""
+    try:
+        import skimage
+        print(f"✓ Scikit-image库导入成功 (版本: {skimage.__version__})")
+        return True
+    except ImportError:
+        print("⚠ Scikit-image未安装")
+        return False
+    except Exception as e:
+        print(f"✗ Scikit-image功能测试失败: {e}")
+        return False
+
+def test_ray_functionality():
+    """测试Ray功能"""
+    try:
+        import ray
+        print(f"✓ Ray库导入成功 (版本: {ray.__version__})")
+        return True
+    except ImportError:
+        print("⚠ Ray未安装")
+        return False
+    except Exception as e:
+        print(f"✗ Ray功能测试失败: {e}")
+        return False
+
+def test_gradio_functionality():
+    """测试Gradio功能"""
+    try:
+        import gradio
+        print(f"✓ Gradio库导入成功 (版本: {gradio.__version__})")
+        return True
+    except ImportError:
+        print("⚠ Gradio未安装")
+        return False
+    except Exception as e:
+        print(f"✗ Gradio功能测试失败: {e}")
+        return False
+
+def test_streamlit_functionality():
+    """测试Streamlit功能"""
+    try:
+        import streamlit
+        print(f"✓ Streamlit库导入成功 (版本: {streamlit.__version__})")
+        return True
+    except ImportError:
+        print("⚠ Streamlit未安装")
+        return False
+    except Exception as e:
+        print(f"✗ Streamlit功能测试失败: {e}")
+        return False
+
+def test_pytorch_lightning_functionality():
+    """测试PyTorch Lightning功能"""
+    try:
+        import pytorch_lightning
+        print(f"✓ PyTorch Lightning库导入成功 (版本: {pytorch_lightning.__version__})")
+        return True
+    except ImportError:
+        print("⚠ PyTorch Lightning未安装")
+        return False
+    except Exception as e:
+        print(f"✗ PyTorch Lightning功能测试失败: {e}")
+        return False
+
+def test_fastai_functionality():
+    """测试FastAI功能"""
+    try:
+        import fastai
+        print(f"✓ FastAI库导入成功 (版本: {fastai.__version__})")
+        return True
+    except ImportError:
+        print("⚠ FastAI未安装")
+        return False
+    except Exception as e:
+        print(f"✗ FastAI功能测试失败: {e}")
+        return False
+
+def test_torchaudio_functionality():
+    """测试Torchaudio功能"""
+    try:
+        import torchaudio
+        print(f"✓ Torchaudio库导入成功 (版本: {torchaudio.__version__})")
+        return True
+    except ImportError:
+        print("⚠ Torchaudio未安装")
+        return False
+    except Exception as e:
+        print(f"✗ Torchaudio功能测试失败: {e}")
+        return False
+
+def test_triton_functionality():
+    """测试Triton功能"""
+    try:
+        import triton
+        print(f"✓ Triton库导入成功 (版本: {triton.__version__})")
+        return True
+    except ImportError:
+        print("⚠ Triton未安装")
+        return False
+    except Exception as e:
+        print(f"✗ Triton功能测试失败: {e}")
+        return False
+
+def test_cupy_functionality():
+    """测试CuPy功能"""
+    try:
+        import cupy
+        print(f"✓ CuPy库导入成功 (版本: {cupy.__version__})")
+        return True
+    except ImportError:
+        print("⚠ CuPy未安装")
+        return False
+    except Exception as e:
+        print(f"✗ CuPy功能测试失败: {e}")
+        return False
+
 def main():
     """主函数"""
     print("=== Python依赖验证脚本 ===\n")
@@ -226,17 +439,31 @@ def main():
     
     # 要测试的模块列表
     modules_to_test = [
-        # 深度学习相关
+        # 深度学习框架
         ("torch", "__version__"),
         ("torchvision", "__version__"),
+        ("torchaudio", "__version__"),
+        ("pytorch_lightning", "__version__"),
+        ("fastai", "__version__"),
         ("transformers", "__version__"),
-        ("tokenizers", "__version__"),
-        ("sentencepiece", "__version__"),
+        ("xformers", None),
+        ("flash_attn", None),
+        ("triton", "__version__"),
+        ("cupy", "__version__"),
+        ("vllm", None),
         
-        # 注意：flash_attn, vllm, xformers 可能需要特殊处理
-        ("flash_attn", None),  # 特殊处理
-        ("vllm", None),        # 特殊处理
-        ("xformers", None),    # 特殊处理
+        # TensorFlow生态
+        ("tensorflow", "__version__"),
+        ("keras", "__version__"),
+        
+        # PaddlePaddle生态
+        ("paddle", "__version__"),
+        
+        # OpenVINO
+        ("openvino", "__version__"),
+        
+        # TensorRT
+        ("tensorrt", "__version__"),
         
         # ONNX相关
         ("onnx", "__version__"),
@@ -244,23 +471,32 @@ def main():
         
         # 图像处理
         ("cv2", "__version__"),  # opencv-python
-        # 注意：opencv-contrib-python通常与opencv-python一起安装
+        ("dlib", "DLIB_VERSION"),
         
         # 数值计算
         ("numpy", "__version__"),
         ("scipy", "__version__"),
         ("pandas", "__version__"),
+        ("polars", "__version__"),
         ("sklearn", "__version__"),  # scikit-learn
+        ("skimage", "__version__"),  # scikit-image
+        
+        # 分布式计算
+        ("ray", "__version__"),
         
         # 网络和序列化
         ("grpcio", "__version__"),
+        ("gradio", "__version__"),
+        ("streamlit", "__version__"),
+        ("tokenizers", "__version__"),
+        ("sentencepiece", "__version__"),
     ]
     
     # 特殊处理的模块
     special_modules = [
+        "xformers",
         "flash_attn",
-        "vllm",
-        "xformers"
+        "vllm"
     ]
     
     print("1. 测试基本模块导入...")
@@ -277,14 +513,14 @@ def main():
     for module_name in special_modules:
         try:
             # 特殊处理这些模块
-            if module_name == "flash_attn":
+            if module_name == "xformers":
+                import xformers
+                print(f"✓ {module_name}")
+            elif module_name == "flash_attn":
                 import flash_attn
                 print(f"✓ {module_name}")
             elif module_name == "vllm":
                 import vllm
-                print(f"✓ {module_name}")
-            elif module_name == "xformers":
-                import xformers
                 print(f"✓ {module_name}")
         except ImportError:
             print(f"⚠ {module_name} 未安装或导入失败 (这在某些环境中是正常的)")
@@ -300,16 +536,32 @@ def main():
     # 测试各库功能
     print("\n[功能测试]")
     test_torch_functionality()
+    test_torchaudio_functionality()
     test_transformers_functionality()
+    test_pytorch_lightning_functionality()
+    test_fastai_functionality()
+    test_triton_functionality()
+    test_cupy_functionality()
     test_opencv_functionality()
+    test_dlib_functionality()
     test_onnx_functionality()
     test_pandas_functionality()
     test_numpy_functionality()
     test_scipy_functionality()
     test_sklearn_functionality()
+    test_polars_functionality()
+    test_skimage_functionality()
+    test_ray_functionality()
     test_grpcio_functionality()
     test_tokenizers_functionality()
     test_sentencepiece_functionality()
+    test_tensorflow_functionality()
+    test_keras_functionality()
+    test_paddle_functionality()
+    test_openvino_functionality()
+    test_tensorrt_functionality()
+    test_gradio_functionality()
+    test_streamlit_functionality()
     
     # 测试NVIDIA CUDA相关库
     print("\n[NVIDIA CUDA库测试]")
